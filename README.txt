@@ -9,7 +9,12 @@ A light weight ssh client that wraps the ssh and rsync commands.
 == SYNOPSIS:
 
   remote = Nutshell::RemoteShell.new "user@example.com"
+  remote.connected?
+  #=> false
+
   remote.connect
+  remote.connected?
+  #=> <#ssh pid>
 
   remote.call "whoami"
   #=> "user"
@@ -19,6 +24,18 @@ A light weight ssh client that wraps the ssh and rsync commands.
 
   remote.upload "myfile.txt", "/tmp/myfile.txt"
   remote.disconnect
+
+  remote.session do |remote|
+    remote.connected?
+    #=> <#ssh pid>
+
+    remote.tty!
+    # starts an interactive shell session
+  end
+
+  remote.connected?
+  #=> false
+  
 
 == REQUIREMENTS:
 
