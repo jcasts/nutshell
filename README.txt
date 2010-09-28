@@ -43,7 +43,7 @@ A light weight ssh client that wraps the ssh and rsync commands.
 
 * highline gem
 
-* Unix based OS
+* Unix based OS with ssh and rsync
 
 == INSTALL:
 
