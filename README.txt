@@ -1,26 +1,36 @@
 = Nutshell
 
-* FIX (url)
+* http://github.com/yaksnrainbows/nutshell
 
 == DESCRIPTION:
 
-FIX (describe your package)
-
-== FEATURES/PROBLEMS:
-
-* FIX (list of features or problems)
+A light weight ssh client that wraps the ssh and rsync commands.
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  remote = Nutshell::RemoteShell.new "user@example.com"
+  remote.connect
+
+  remote.call "whoami"
+  #=> "user"
+
+  remote.call "whoami", :sudo => true
+  #=> "root"
+
+  remote.upload "myfile.txt", "/tmp/myfile.txt"
+  remote.disconnect
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+* open4 gem
+
+* highline gem
+
+* Unix based OS
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+* gem install nutshell
 
 == LICENSE:
 
