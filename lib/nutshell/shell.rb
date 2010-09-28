@@ -191,6 +191,18 @@ module Nutshell
 
 
     ##
+    # Runs the given block within a session.
+    # Will not disconnect if previous session had been started.
+
+    def session &block
+      was_connected = connected?
+      connect
+      yield self if block_given?
+      disconnect unless was_connected
+    end
+
+
+    ##
     # Build an sh -c command
 
     def sh_cmd cmd
