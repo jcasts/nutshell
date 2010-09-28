@@ -3,3 +3,10 @@ Manifest.txt
 README.txt
 Rakefile
 lib/nutshell.rb
+lib/nutshell/remote_shell.rb
+lib/nutshell/shell.rb
+test/mocks/mock_object.rb
+test/mocks/mock_open4.rb
+test/test_helper.rb
+test/test_remote_shell.rb
+test/test_shell.rb
