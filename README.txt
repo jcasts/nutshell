@@ -53,7 +53,7 @@ A light weight ssh client that wraps the ssh and rsync commands.
 
 (The MIT License)
 
-Copyright (c) 2010 FIX
+Copyright (c) 2010 Jeremie Castagna
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
