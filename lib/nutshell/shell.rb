@@ -70,6 +70,14 @@ module Nutshell
 
 
     ##
+    # Prompt the user to make a choice.
+
+    def choose(&block)
+      sync{ @input.choose(&block) }
+    end
+
+
+    ##
     # Close the output IO. (Required by the Logger class)
 
     def close

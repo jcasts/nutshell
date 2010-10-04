@@ -107,7 +107,7 @@ module Nutshell
         raise TimeoutError if timed_out?(start_time, LOGIN_TIMEOUT)
       end
 
-      unless connected?
+      unless ready && connected?
         disconnect
         host_info = [@user, @host].compact.join("@")
         raise ConnectionError, "Can't connect to #{host_info}"
