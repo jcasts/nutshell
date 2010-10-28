@@ -10,8 +10,22 @@ module Nutshell
     LOCAL_USER = `whoami`.chomp
     LOCAL_HOST = `hostname`.chomp
 
-    SUDO_FAILED = /^Sorry, try again./
-    SUDO_PROMPT = /^Password:/
+
+    class << self
+      # The message to match in stderr to determine logging in has failed.
+      # Defaults to:
+      #   /^Sorry, try again./
+      attr_accessor :sudo_failed_matcher
+
+      # The message to match in stderr to determine a password is required.
+      # Defaults to:
+      #   /^Password:/
+      attr_accessor :sudo_prompt_matcher
+    end
+
+    self.sudo_failed_matcher = /^Sorry, try again./
+    self.sudo_prompt_matcher = /^Password:/
+
 
     attr_reader :user, :host, :password, :input, :output, :mutex
     attr_accessor :env, :sudo, :timeout
@@ -214,7 +228,7 @@ module Nutshell
     # Build an sh -c command
 
     def sh_cmd cmd
-      ["sh", "-c", quote_cmd(cmd)]
+      ["sh", "-i", "-c", quote_cmd(cmd)]
     end
 
 
@@ -266,7 +280,7 @@ module Nutshell
     ##
     # Returns true if command was run successfully, otherwise returns false.
 
-    def syscall cmd, options=nil
+    def system cmd, options=nil
       call(cmd, options) && true rescue false
     end
 
@@ -347,6 +361,8 @@ module Nutshell
       inn.sync = true
       log_methods = {out => :debug, err => :error}
 
+      status = nil
+
       result, status = process_streams(pid, out, err) do |stream, data|
         stream_name = :out if stream == out
         stream_name = :err if stream == err
@@ -360,9 +376,7 @@ module Nutshell
 
 
         if password_required?(stream_name, data) then
-
           kill_process(pid) unless Nutshell.interactive?
-
           send_password_to_stream(inn, data)
         end
       end
@@ -387,12 +401,12 @@ module Nutshell
 
 
     def password_required? stream_name, data
-      stream_name == :err && data =~ SUDO_PROMPT
+      stream_name == :err && data =~ Shell.sudo_prompt_matcher
     end
 
 
     def send_password_to_stream inn, data
-      prompt_for_password if data =~ SUDO_FAILED
+      prompt_for_password if data =~ Shell.sudo_failed_matcher
       inn.puts @password || prompt_for_password
     end
 

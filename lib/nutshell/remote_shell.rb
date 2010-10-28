@@ -60,7 +60,7 @@ module Nutshell
 
       @user ||= options[:user]
 
-      @rsync_flags = ["-azP"]
+      @rsync_flags = ["-azrP"]
       @rsync_flags.concat [*options[:rsync_flags]] if options[:rsync_flags]
 
       @ssh_flags = [
@@ -165,7 +165,7 @@ module Nutshell
     # Checks if the given file exists
 
     def file? filepath
-      syscall "test -f #{filepath}"
+      self.system "test -f #{filepath}"
     end
 
 

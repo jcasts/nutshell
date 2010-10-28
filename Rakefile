@@ -39,6 +39,7 @@ Hoe.spec 'nutshell' do |p|
   developer('Jeremie Castagna', 'yaksnrainbows@gmail.com')
   self.extra_deps << ['open4',    '>= 1.0.1']
   self.extra_deps << ['highline', '>= 1.5.1']
+  self.extra_deps << ['ruby-termios', '>= 0.9.6']
 end
 
 # vim: syntax=Ruby
