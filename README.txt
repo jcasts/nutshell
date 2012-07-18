@@ -1,6 +1,6 @@
 = Nutshell
 
-* http://github.com/yaksnrainbows/nutshell
+* http://yaks.me/nutshell
 
 == DESCRIPTION:
 

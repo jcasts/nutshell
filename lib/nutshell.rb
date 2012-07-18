@@ -9,7 +9,7 @@ require 'tmpdir'
 
 module Nutshell
 
-  VERSION = "1.0.0"
+  VERSION = "1.0.1"
 
   ##
   # Temp directory used by various nutshell classes
